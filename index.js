@@ -1,4 +1,4 @@
-require('dotenv').config();
+try { require('dotenv').config(); } catch (e) {}
 
 const { 
     Client, 
@@ -40,43 +40,43 @@ const WHATSAPP_LINK = 'https://chat.whatsapp.com/GY4cW23NQt41oTNHBhgSCI?s=cl&p=a
 
 const baseQuizQuestions = [
     {
-        question: '**Pergunta:** O que significa a regra de **RDM** (Random Deathmatch)?\n\n1️⃣ Matar ou agredir outro jogador sem uma justificativa/motivo válido de RP.\n2️⃣ Bater o carro de propósito em alta velocidade nos outros.\n3️⃣ Abandonar o jogo no meio de uma abordagem policial.',
+        question: 'O que significa a regra de **RDM** (Random Deathmatch)?\n\n1️⃣ Matar ou agredir outro jogador sem uma justificativa/motivo válido de RP.\n2️⃣ Bater o carro de propósito em alta velocidade nos outros.\n3️⃣ Abandonar o jogo no meio de uma abordagem policial.',
         correct: '1'
     },
     {
-        question: '**Pergunta:** O que caracteriza a infração de **VDM** (Vehicle Deathmatch)?\n\n1️⃣ Usar o veículo estritamente para fuga em alta velocidade.\n2️⃣ Atropelar, usar o carro como arma ou matar outros jogadores com o veículo sem motivo justo de RP.\n3️⃣ Estacionar em local proibido na praça central.',
+        question: 'O que caracteriza a infração de **VDM** (Vehicle Deathmatch)?\n\n1️⃣ Usar o veículo estritamente para fuga em alta velocidade.\n2️⃣ Atropelar, usar o carro como arma ou matar outros jogadores com o veículo sem motivo justo de RP.\n3️⃣ Estacionar em local proibido na praça central.',
         correct: '2'
     },
     {
-        question: '**Pergunta:** O que significa a regra de **RK** (Revenge Kill)?\n\n1️⃣ Vingar-se ou retornar ao local onde o seu personagem morreu para matar quem o matou, usando memórias da vida passada.\n2️⃣ Matar um policial em legítima defesa durante um assalto a banco.\n3️⃣ Ligar para o SAMU após sofrer um acidente.',
+        question: 'O que significa a regra de **RK** (Revenge Kill)?\n\n1️⃣ Vingar-se ou retornar ao local onde o seu personagem morreu para matar quem o matou, usando memórias da vida passada.\n2️⃣ Matar um policial em legítima defesa durante um assalto a banco.\n3️⃣ Ligar para o SAMU após sofrer um acidente.',
         correct: '1'
     },
     {
-        question: '**Pergunta:** O que é a infração de **SK** (Spawn Kill)?\n\n1️⃣ Matar jogadores na zona segura ou no exato local de renascimento/spawn deles.\n2️⃣ Matar um refém após negociação falhar.\n3️⃣ Atirar em uma perseguição policial em andamento.',
+        question: 'O que é a infração de **SK** (Spawn Kill)?\n\n1️⃣ Matar jogadores na zona segura ou no exato local de renascimento/spawn deles.\n2️⃣ Matar um refém após negociação falhar.\n3️⃣ Atirar em uma perseguição policial em andamento.',
         correct: '1'
     },
     {
-        question: '**Pergunta:** Se você sofrer um acidente grave de carro, qual deve ser a sua atitude imediata baseada no **Amor à Vida (FearRP)**?\n\n1️⃣ Levantar imediatamente e continuar correndo atrás do suspeito.\n2️⃣ Interpretar os ferimentos, valorizar a vida do seu personagem e aguardar atendimento médico.\n3️⃣ Xingar o motorista no chat OOC.',
+        question: 'Se você sofrer um acidente grave de carro, qual deve ser a sua atitude imediata baseada no **Amor à Vida (FearRP)**?\n\n1️⃣ Levantar imediatamente e continuar correndo atrás do suspeito.\n2️⃣ Interpretar os ferimentos, valorizar a vida do seu personagem e aguardar atendimento médico.\n3️⃣ Xingar o motorista no chat OOC.',
         correct: '2'
     },
     {
-        question: '**Pergunta:** O que é considerado **Powergaming**?\n\n1️⃣ Falar palavrões no chat de voz global.\n2️⃣ Realizar ações irreais, sobre-humanas ou que o seu personagem não poderia fazer na vida real.\n3️⃣ Trabalhar em dois empregos ao mesmo tempo.',
+        question: 'O que é considerado **Powergaming**?\n\n1️⃣ Falar palavrões no chat de voz global.\n2️⃣ Realizar ações irreais, sobre-humanas ou que o seu personagem não poderia fazer na vida real.\n3️⃣ Trabalhar em dois empregos ao mesmo tempo.',
         correct: '2'
     },
     {
-        question: '**Pergunta:** O que significa fazer **Metagaming**?\n\n1️⃣ Usar informações que o seu personagem descobriu fora do jogo (Discord, Stream, etc) dentro do RP.\n2️⃣ Trocar de roupa na loja de departamentos.\n3️⃣ Comprar um veículo importado.',
+        question: 'O que significa fazer **Metagaming**?\n\n1️⃣ Usar informações que o seu personagem descobriu fora do jogo (Discord, Stream, etc) dentro do RP.\n2️⃣ Trocar de roupa na loja de departamentos.\n3️⃣ Comprar um veículo importado.',
         correct: '1'
     },
     {
-        question: '**Pergunta:** O que é o **Combat Logging**?\n\n1️⃣ Dormir na sua casa no jogo para recuperar energia.\n2️⃣ Desconectar do jogo (dar ALT+F4) para evitar uma situação de RP, abordagem ou morte.\n3️⃣ Entrar no servidor fora do horário de pico.',
+        question: 'O que é o **Combat Logging**?\n\n1️⃣ Dormir na sua casa no jogo para recuperar energia.\n2️⃣ Desconectar do jogo (dar ALT+F4) para evitar uma situação de RP, abordagem ou morte.\n3️⃣ Entrar no servidor fora do horário de pico.',
         correct: '2'
     },
     {
-        question: '**Pergunta:** Qual é a conduta correta ao entrar em uma **Safe Zone (Zona Segura)**?\n\n1️⃣ Iniciar um tiroteio se houver desafetos por perto.\n2️⃣ Respeitar a proibição absoluta de qualquer ato agressivo, roubo ou homicídio.\n3️⃣ Roubar carros que estiverem destrancados na área.',
+        question: 'Qual é a conduta correta ao entrar em uma **Safe Zone (Zona Segura)**?\n\n1️⃣ Iniciar um tiroteio se houver desafetos por perto.\n2️⃣ Respeitar a proibição absoluta de qualquer ato agressivo, roubo ou homicídio.\n3️⃣ Roubar carros que estiverem destrancados na área.',
         correct: '2'
     },
     {
-        question: '**Pergunta:** O que significa agir com **Ações Irrealistas (Non-RP)**?\n\n1️⃣ Executar manobras absurdas com veículos comuns (como saltar de penhascos enormes e continuar andando normalmente).\n2️⃣ Trabalhar honestamente como entregador.\n3️⃣ Seguir todas as leis de trânsito da cidade.',
+        question: 'O que significa agir com **Ações Irrealistas (Non-RP)**?\n\n1️⃣ Executar manobras absurdas com veículos comuns (como saltar de penhascos enormes e continuar andando normalmente).\n2️⃣ Trabalhar honestamente como entregador.\n3️⃣ Seguir todas as leis de trânsito da cidade.',
         correct: '1'
     }
 ];
@@ -91,6 +91,7 @@ function shuffleArray(array) {
 }
 
 async function getLogChannel(guild) {
+    if (!guild) return null;
     if (globalLogChannelId) {
         const ch = await guild.channels.fetch(globalLogChannelId).catch(() => null);
         if (ch) return ch;
@@ -156,7 +157,7 @@ function reiniciarTimerAviso(clientInstance) {
         if (channel) {
             await enviarAvisoRecrutamento(channel.guild);
         }
-    }, 1 * 60 * 60 * 1000); // 1 Hora
+    }, 1 * 60 * 60 * 1000);
 }
 
 client.once('clientReady', () => {
@@ -176,317 +177,359 @@ client.on('guildMemberAdd', async member => {
     }
 });
 
+// COMANDOS NO SERVIDOR
 client.on('messageCreate', async message => {
-    if (message.author.bot) return;
+    if (message.author.bot || !message.guild) return;
 
-    // COMANDOS DE SERVIDOR
-    if (message.guild) {
-        if (message.content.startsWith('!setartag')) {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
-                return message.reply('❌ Você precisa ser Administrador para usar este comando.');
-            }
+    if (message.content.startsWith('!setartag')) {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
+            return message.reply('❌ Você precisa ser Administrador para usar este comando.');
+        }
 
-            const role = message.mentions.roles.first();
-            if (!role) {
-                return message.reply('⚠️ Por favor, marque o cargo/tag que deseja setar. Exemplo: `!setartag @Cria do CV`');
-            }
+        const role = message.mentions.roles.first();
+        if (!role) {
+            return message.reply('⚠️ Por favor, marque o cargo/tag que deseja setar. Exemplo: `!setartag @Cria do CV`');
+        }
 
-            try {
-                await message.reply(`🔄 Processando: Adicionando o cargo **${role.name}** em todos os membros e atualizando permissões...`);
-                await message.guild.members.fetch();
-                const members = message.guild.members.cache.filter(member => !member.user.bot);
+        try {
+            await message.reply(`🔄 Processando: Adicionando o cargo **${role.name}** em todos os membros e atualizando permissões...`);
+            await message.guild.members.fetch();
+            const members = message.guild.members.cache.filter(member => !member.user.bot);
 
-                let addedCount = 0;
-                for (const [id, member] of members) {
-                    if (!member.roles.cache.has(role.id)) {
-                        try { await member.roles.add(role); addedCount++; } catch (err) {}
-                    }
+            let addedCount = 0;
+            for (const [id, member] of members) {
+                if (!member.roles.cache.has(role.id)) {
+                    try { await member.roles.add(role); addedCount++; } catch (err) {}
                 }
+            }
 
-                const categories = message.guild.channels.cache.filter(c => c.type === ChannelType.GuildCategory);
-                let updatedCategoriesCount = 0;
+            const categories = message.guild.channels.cache.filter(c => c.type === ChannelType.GuildCategory);
+            let updatedCategoriesCount = 0;
 
-                for (const [id, category] of categories) {
-                    const catName = category.name.toUpperCase();
-                    if (catName.includes('RECRUTAMENTO') || catName.includes('ENCOMENDAS') || catName.includes('VOZ') || catName.includes('ORG')) {
-                        await category.permissionOverwrites.set([
-                            { id: message.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
-                            { id: role.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.Connect, PermissionFlagsBits.Speak] }
-                        ]);
-                        updatedCategoriesCount++;
-                    }
+            for (const [id, category] of categories) {
+                const catName = category.name.toUpperCase();
+                if (catName.includes('RECRUTAMENTO') || catName.includes('ENCOMENDAS') || catName.includes('VOZ') || catName.includes('ORG')) {
+                    await category.permissionOverwrites.set([
+                        { id: message.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
+                        { id: role.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.Connect, PermissionFlagsBits.Speak] }
+                    ]);
+                    updatedCategoriesCount++;
                 }
-
-                await message.channel.send(`✅ **Sucesso!** Cargo adicionado a **${addedCount}** membros e permissões ajustadas em **${updatedCategoriesCount}** categorias.`);
-            } catch (error) {
-                console.error(error);
-                message.reply('❌ Ocorreu um erro ao processar o comando.');
-            }
-        }
-
-        if (message.content.startsWith('!avisar')) {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
-                return message.reply('❌ Você precisa ser Administrador para usar este comando.');
             }
 
-            const textoCustomizado = message.content.slice('!avisar'.length).trim();
-            if (textoCustomizado) {
-                customAvisoText = textoCustomizado;
-            }
-
-            if (!globalAvisoChannelId) {
-                return message.reply('⚠️ O canal de avisos gerais ainda não foi criado! Use o comando `!criaraviso` primeiro.');
-            }
-
-            const canalEnviado = await enviarAvisoRecrutamento(message.guild);
-            reiniciarTimerAviso(client);
-
-            if (canalEnviado) {
-                return message.reply(`✅ Aviso disparado com sucesso! O ciclo de 1 hora foi reiniciado. Veja na aba correspondente: <#${globalAvisoChannelId}>`);
-            } else {
-                return message.reply('❌ Erro ao enviar o aviso. Verifique se o canal de avisos ainda existe.');
-            }
-        }
-
-        if (message.content === '!criarbotoesencomendas') {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return message.reply('❌ Apenas administradores.');
-            const channelName = message.channel.name.toLowerCase();
-
-            if (channelName.includes('drogas')) {
-                const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_drugs').setLabel('Fazer Encomenda de Drogas').setStyle(ButtonStyle.Success).setEmoji('🌿'));
-                await message.channel.send({ embeds: [new EmbedBuilder().setTitle('🌿 Encomenda de Drogas').setColor('#2ecc71')], components: [row] });
-                return message.reply('✅ Botão gerado!');
-            } else if (channelName.includes('armamentos') || channelName.includes('armas')) {
-                const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_weapons').setLabel('Fazer Encomenda de Armas').setStyle(ButtonStyle.Danger).setEmoji('🔫'));
-                await message.channel.send({ embeds: [new EmbedBuilder().setTitle('🔫 Encomenda de Armamentos').setColor('#e74c3c')], components: [row] });
-                return message.reply('✅ Botão gerado!');
-            } else if (channelName.includes('explosivos')) {
-                const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_explosives').setLabel('Fazer Encomenda de Explosivos').setStyle(ButtonStyle.Primary).setEmoji('💣'));
-                await message.channel.send({ embeds: [new EmbedBuilder().setTitle('💣 Encomenda de Explosivos').setColor('#e67e22')], components: [row] });
-                return message.reply('✅ Botão gerado!');
-            } else {
-                return message.reply('⚠️ Execute dentro de um canal específico de encomendas.');
-            }
-        }
-
-        if (message.content === '!clonarcategoriaencomendas') {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
-            try {
-                await message.reply('🔍 Criando estruturas...');
-                const catInfo = await message.guild.channels.create({ name: '📌 INFORMAÇÕES E REQUISITOS', type: ChannelType.GuildCategory });
-                await message.guild.channels.create({ name: 'requisitos-gerais', type: ChannelType.GuildText, parent: catInfo.id });
-                await message.guild.channels.create({ name: 'desempenho-membros', type: ChannelType.GuildText, parent: catInfo.id });
-
-                const catEncomendas = await message.guild.channels.create({ name: '📦 CENTRAL DE ENCOMENDAS', type: ChannelType.GuildCategory });
-                await message.guild.channels.create({ name: 'tabela-de-valores', type: ChannelType.GuildText, parent: catEncomendas.id });
-
-                const chanDrogas = await message.guild.channels.create({ name: 'encomenda-drogas', type: ChannelType.GuildText, parent: catEncomendas.id });
-                await chanDrogas.send({ embeds: [new EmbedBuilder().setTitle('🌿 Encomenda de Drogas').setColor('#2ecc71')], components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_drugs').setLabel('Fazer Encomenda de Drogas').setStyle(ButtonStyle.Success).setEmoji('🌿'))] });
-
-                const chanArmas = await message.guild.channels.create({ name: 'encomenda-armamentos', type: ChannelType.GuildText, parent: catEncomendas.id });
-                await chanArmas.send({ embeds: [new EmbedBuilder().setTitle('🔫 Encomenda de Armamentos').setColor('#e74c3c')], components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_weapons').setLabel('Fazer Encomenda de Armas').setStyle(ButtonStyle.Danger).setEmoji('🔫'))] });
-
-                const chanExplosivos = await message.guild.channels.create({ name: 'encomenda-explosivos', type: ChannelType.GuildText, parent: catEncomendas.id });
-                await chanExplosivos.send({ embeds: [new EmbedBuilder().setTitle('💣 Encomenda de Explosivos').setColor('#e67e22')], components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_explosives').setLabel('Fazer Encomenda de Explosivos').setStyle(ButtonStyle.Primary).setEmoji('💣'))] });
-
-                await message.reply('✅ Categorias de encomendas geradas.');
-            } catch (error) {
-                console.error(error);
-                message.reply('❌ Erro ao criar categorias.');
-            }
-        }
-
-        if (message.content === '!criarcategoria') {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
-            const category = await message.guild.channels.create({ name: 'RECRUTAMENTO BMRP', type: ChannelType.GuildCategory });
-            const textChannel = await message.guild.channels.create({ name: 'fazer-teste', type: ChannelType.GuildText, parent: category.id });
-            const embed = new EmbedBuilder().setTitle('📝 Prova de Recrutamento 24h - BMRP').setDescription('Clique no botão abaixo para iniciar o teste nas suas DMs.').setColor('#2b2d31');
-            const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('start_quiz').setLabel('Iniciar Teste / Prova').setStyle(ButtonStyle.Success).setEmoji('🚀'));
-            await textChannel.send({ embeds: [embed], components: [row] });
-            await message.reply('✅ Categoria de testes criada.');
-        }
-
-        if (message.content === '!criarlog') {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
-            const categoryLogs = await message.guild.channels.create({ name: 'LOGS DE RECRUTAMENTO', type: ChannelType.GuildCategory });
-            const logChannel = await message.guild.channels.create({ name: 'resultados-aprovados-reprovados', type: ChannelType.GuildText, parent: categoryLogs.id });
-            globalLogChannelId = logChannel.id;
-            await message.reply(`✅ Canal de logs criado em <#${logChannel.id}>.`);
-        }
-
-        if (message.content.startsWith('!criaraviso')) {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
-            const args = message.content.slice('!criaraviso'.length).trim();
-            if (args) customAvisoText = args; 
-
-            const categoryAviso = await message.guild.channels.create({ name: 'AVISOS GERAIS', type: ChannelType.GuildCategory });
-            const avisoChannel = await message.guild.channels.create({ name: 'recrutamento-online', type: ChannelType.GuildText, parent: categoryAviso.id });
-            globalAvisoChannelId = avisoChannel.id;
-
-            await enviarAvisoRecrutamento(message.guild);
-            reiniciarTimerAviso(client);
-
-            await message.reply(`✅ Canal de avisos criado em <#${avisoChannel.id}> e temporizador de 1 em 1 hora ativado.`);
-        }
-
-        if (message.content.startsWith('!tirarcooldown')) {
-            if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
-            const targetUser = message.mentions.users.first();
-            if (!targetUser) return message.reply('⚠️ Marque o usuário. Ex: `!tirarcooldown @usuario`');
-            if (cooldowns.has(targetUser.id)) {
-                cooldowns.delete(targetUser.id);
-                return message.reply(`✅ Cooldown de **${targetUser.tag}** removido!`);
-            } else {
-                return message.reply(`⚠️ O usuário não está em cooldown.`);
-            }
-        }
-        return;
-    }
-
-    // RESPOSTAS DAS PROVAS VIA DM (MENSAGENS PRIVADAS)
-    const test = activeTests.get(message.author.id);
-    if (!test) return;
-
-    const content = message.content.trim();
-    await message.delete().catch(() => {});
-    if (test.lastBotMessage) await test.lastBotMessage.delete().catch(() => {});
-
-    if (test.step === 0) {
-        if (test.subStep === 'nome') {
-            test.data.nome = content;
-            test.subStep = 'nick';
-            test.lastBotMessage = await message.channel.send('🎮 Qual é o seu **Nick no Jogo**?');
-            return;
-        }
-        if (test.subStep === 'nick') {
-            test.data.nick = content;
-            test.subStep = 'level';
-            test.lastBotMessage = await message.channel.send('⭐ Qual é o seu **Level no Jogo**?');
-            return;
-        }
-        if (test.subStep === 'level') {
-            test.data.level = content;
-            test.subStep = 'tempo';
-            test.lastBotMessage = await message.channel.send('⏳ Há **quanto tempo você joga no servidor**?');
-            return;
-        }
-        if (test.subStep === 'tempo') {
-            test.data.tempo = content;
-            test.step = 1; 
-            const totalQ = test.questions.length;
-            const firstQ = test.questions[0];
-            test.lastBotMessage = await message.channel.send(`✅ Cadastro concluído!\n\nIniciando a **Prova de Regras (${totalQ} Questões)**.\nResponda com o número da alternativa (\`1\`, \`2\` ou \`3\`):\n\n**Pergunta 1/${totalQ}:**\n${firstQ.question}`);
-            return;
+            await message.channel.send(`✅ **Sucesso!** Cargo adicionado a **${addedCount}** membros e permissões ajustadas em **${updatedCategoriesCount}** categorias.`);
+        } catch (error) {
+            console.error(error);
+            message.reply('❌ Ocorreu um erro ao processar o comando.');
         }
     }
 
-    const totalQuestions = test.questions.length;
-    const currentQ = test.questions[test.step - 1];
+    if (message.content.startsWith('!avisar')) {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
+            return message.reply('❌ Você precisa ser Administrador para usar este comando.');
+        }
 
-    if (!['1', '2', '3'].includes(content)) {
-        const warning = await message.channel.send('⚠️ Responda digitando apenas o número da alternativa (1, 2 ou 3).');
-        setTimeout(() => warning.delete().catch(() => {}), 4000);
-        return;
-    }
+        const textoCustomizado = message.content.slice('!avisar'.length).trim();
+        if (textoCustomizado) {
+            customAvisoText = textoCustomizado;
+        }
 
-    if (content === currentQ.correct) test.score++;
-    test.step++;
+        if (!globalAvisoChannelId) {
+            return message.reply('⚠️ O canal de avisos gerais ainda não foi criado! Use o comando `!criaraviso` primeiro.');
+        }
 
-    if (test.step - 1 < totalQuestions) {
-        const nextQ = test.questions[test.step - 1];
-        test.lastBotMessage = await message.channel.send(`**Pergunta ${test.step}/${totalQuestions}:**\n${nextQ.question}`);
-    } else {
-        const totalQ = totalQuestions;
-        let status = '';
-        let color = '#00FF00';
+        const canalEnviado = await enviarAvisoRecrutamento(message.guild);
+        reiniciarTimerAviso(client);
 
-        if (test.score > 5) {
-            status = '✅ **APROVADO**';
-            await message.channel.send(`${status} com **${test.score}/${totalQ}** acertos!\nEntre no grupo do WhatsApp:\n${WHATSAPP_LINK}`);
-        } else if (test.score === 5) {
-            status = '⚠️ **APROVADO COM OBSERVAÇÃO**';
-            color = '#FFFF00';
-            await message.channel.send(`${status} com **${test.score}/${totalQ}** acertos! Você passou na metade da prova.\nEntre no grupo do WhatsApp:\n${WHATSAPP_LINK}`);
+        if (canalEnviado) {
+            return message.reply(`✅ Aviso disparado com sucesso! O ciclo de 1 hora foi reiniciado. Veja na aba correspondente: <#${globalAvisoChannelId}>`);
         } else {
-            status = '❌ **REPROVADO**';
-            color = '#FF0000';
-            cooldowns.set(message.author.id, Date.now() + (5 * 60 * 60 * 1000));
-            await message.channel.send(`${status}. Acertou apenas **${test.score}/${totalQ}**.\nTente novamente em **5 horas**.`);
+            return message.reply('❌ Erro ao enviar o aviso. Verifique se o canal de avisos ainda existe.');
         }
+    }
 
-        let logChannel = await getLogChannel(test.guild);
-        if (logChannel) {
-            const embedLog = new EmbedBuilder()
-                .setTitle(`RESULTADO: ${status.replace(/\*/g, '')}`)
-                .setColor(color)
-                .addFields(
-                    { name: '👤 Discord', value: `${message.author}`, inline: false },
-                    { name: '📝 Nome', value: test.data.nome, inline: true },
-                    { name: '🎮 Nick', value: test.data.nick, inline: true },
-                    { name: '📊 Acertos', value: `${test.score}/${totalQ}`, inline: false }
-                ).setTimestamp();
-            await logChannel.send({ embeds: [embedLog] });
+    if (message.content === '!criarbotoesencomendas') {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return message.reply('❌ Apenas administradores.');
+        const channelName = message.channel.name.toLowerCase();
+
+        if (channelName.includes('drogas')) {
+            const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_drugs').setLabel('Fazer Encomenda de Drogas').setStyle(ButtonStyle.Success).setEmoji('🌿'));
+            await message.channel.send({ embeds: [new EmbedBuilder().setTitle('🌿 Encomenda de Drogas').setColor('#2ecc71')], components: [row] });
+            return message.reply('✅ Botão gerado!');
+        } else if (channelName.includes('armamentos') || channelName.includes('armas')) {
+            const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_weapons').setLabel('Fazer Encomenda de Armas').setStyle(ButtonStyle.Danger).setEmoji('🔫'));
+            await message.channel.send({ embeds: [new EmbedBuilder().setTitle('🔫 Encomenda de Armamentos').setColor('#e74c3c')], components: [row] });
+            return message.reply('✅ Botão gerado!');
+        } else if (channelName.includes('explosivos')) {
+            const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_explosives').setLabel('Fazer Encomenda de Explosivos').setStyle(ButtonStyle.Primary).setEmoji('💣'));
+            await message.channel.send({ embeds: [new EmbedBuilder().setTitle('💣 Encomenda de Explosivos').setColor('#e67e22')], components: [row] });
+            return message.reply('✅ Botão gerado!');
+        } else {
+            return message.reply('⚠️ Execute dentro de um canal específico de encomendas.');
         }
-        
-        activeTests.delete(message.author.id);
+    }
+
+    if (message.content === '!clonarcategoriaencomendas') {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
+        try {
+            await message.reply('🔍 Criando estruturas...');
+            const catInfo = await message.guild.channels.create({ name: '📌 INFORMAÇÕES E REQUISITOS', type: ChannelType.GuildCategory });
+            await message.guild.channels.create({ name: 'requisitos-gerais', type: ChannelType.GuildText, parent: catInfo.id });
+            await message.guild.channels.create({ name: 'desempenho-membros', type: ChannelType.GuildText, parent: catInfo.id });
+
+            const catEncomendas = await message.guild.channels.create({ name: '📦 CENTRAL DE ENCOMENDAS', type: ChannelType.GuildCategory });
+            await message.guild.channels.create({ name: 'tabela-de-valores', type: ChannelType.GuildText, parent: catEncomendas.id });
+
+            const chanDrogas = await message.guild.channels.create({ name: 'encomenda-drogas', type: ChannelType.GuildText, parent: catEncomendas.id });
+            await chanDrogas.send({ embeds: [new EmbedBuilder().setTitle('🌿 Encomenda de Drogas').setColor('#2ecc71')], components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_drugs').setLabel('Fazer Encomenda de Drogas').setStyle(ButtonStyle.Success).setEmoji('🌿'))] });
+
+            const chanArmas = await message.guild.channels.create({ name: 'encomenda-armamentos', type: ChannelType.GuildText, parent: catEncomendas.id });
+            await chanArmas.send({ embeds: [new EmbedBuilder().setTitle('🔫 Encomenda de Armamentos').setColor('#e74c3c')], components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_weapons').setLabel('Fazer Encomenda de Armas').setStyle(ButtonStyle.Danger).setEmoji('🔫'))] });
+
+            const chanExplosivos = await message.guild.channels.create({ name: 'encomenda-explosivos', type: ChannelType.GuildText, parent: catEncomendas.id });
+            await chanExplosivos.send({ embeds: [new EmbedBuilder().setTitle('💣 Encomenda de Explosivos').setColor('#e67e22')], components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('order_explosives').setLabel('Fazer Encomenda de Explosivos').setStyle(ButtonStyle.Primary).setEmoji('💣'))] });
+
+            await message.reply('✅ Categorias de encomendas geradas.');
+        } catch (error) {
+            console.error(error);
+            message.reply('❌ Erro ao criar categorias.');
+        }
+    }
+
+    if (message.content === '!criarcategoria') {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
+        const category = await message.guild.channels.create({ name: 'RECRUTAMENTO BMRP', type: ChannelType.GuildCategory });
+        const textChannel = await message.guild.channels.create({ name: 'fazer-teste', type: ChannelType.GuildText, parent: category.id });
+        const embed = new EmbedBuilder().setTitle('📝 Prova de Recrutamento 24h - BMRP').setDescription('Clique no botão abaixo para iniciar o teste.').setColor('#2b2d31');
+        const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('start_quiz').setLabel('Iniciar Teste / Prova').setStyle(ButtonStyle.Success).setEmoji('🚀'));
+        await textChannel.send({ embeds: [embed], components: [row] });
+        await message.reply('✅ Categoria de testes criada.');
+    }
+
+    if (message.content === '!criarlog') {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
+        const categoryLogs = await message.guild.channels.create({ name: 'LOGS DE RECRUTAMENTO', type: ChannelType.GuildCategory });
+        const logChannel = await message.guild.channels.create({ name: 'resultados-aprovados-reprovados', type: ChannelType.GuildText, parent: categoryLogs.id });
+        globalLogChannelId = logChannel.id;
+        await message.reply(`✅ Canal de logs criado em <#${logChannel.id}>.`);
+    }
+
+    if (message.content.startsWith('!criaraviso')) {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
+        const args = message.content.slice('!criaraviso'.length).trim();
+        if (args) customAvisoText = args; 
+
+        const categoryAviso = await message.guild.channels.create({ name: 'AVISOS GERAIS', type: ChannelType.GuildCategory });
+        const avisoChannel = await message.guild.channels.create({ name: 'recrutamento-online', type: ChannelType.GuildText, parent: categoryAviso.id });
+        globalAvisoChannelId = avisoChannel.id;
+
+        await enviarAvisoRecrutamento(message.guild);
+        reiniciarTimerAviso(client);
+
+        await message.reply(`✅ Canal de avisos criado em <#${avisoChannel.id}> e temporizador de 1 em 1 hora ativado.`);
+    }
+
+    if (message.content.startsWith('!tirarcooldown')) {
+        if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) return;
+        const targetUser = message.mentions.users.first();
+        if (!targetUser) return message.reply('⚠️ Marque o usuário. Ex: `!tirarcooldown @usuario`');
+        if (cooldowns.has(targetUser.id)) {
+            cooldowns.delete(targetUser.id);
+            return message.reply(`✅ Cooldown de **${targetUser.tag}** removido!`);
+        } else {
+            return message.reply(`⚠️ O usuário não está em cooldown.`);
+        }
     }
 });
 
+// INTERAÇÕES (BOTÕES E FORMULÁRIOS)
 client.on('interactionCreate', async interaction => {
-    if (interaction.isButton()) {
-        if (interaction.customId === 'start_quiz') {
-            const userId = interaction.user.id;
-            if (cooldowns.has(userId)) {
-                const expirationTime = cooldowns.get(userId);
-                if (Date.now() < expirationTime) {
-                    const hoursLeft = Math.ceil((expirationTime - Date.now()) / (1000 * 60 * 60));
-                    return interaction.reply({ content: `❌ Você foi reprovado recentemente. Tente novamente em **${hoursLeft}h**.`, ephemeral: true });
-                } else {
-                    cooldowns.delete(userId); 
-                }
-            }
+    
+    // BOTÃO: Iniciar Prova / Teste
+    if (interaction.isButton() && interaction.customId === 'start_quiz') {
+        const userId = interaction.user.id;
 
-            if (activeTests.has(userId)) {
-                return interaction.reply({ content: '⚠️ Você já possui um processo de recrutamento em andamento nas DMs!', ephemeral: true });
-            }
-
-            try {
-                const dmChannel = await interaction.user.createDM();
-                const shuffledQuestions = shuffleArray(baseQuizQuestions);
-
-                activeTests.set(userId, { step: 0, subStep: 'nome', data: {}, score: 0, questions: shuffledQuestions, guild: interaction.guild, lastBotMessage: null });
-                await interaction.reply({ content: '✅ Verifique suas **Mensagens Diretas (DMs)**!', ephemeral: true });
-                
-                const initialMsg = await dmChannel.send('📋 **Cadastro de Recrutamento BMRP**\nPara começarmos, qual é o seu **Nome**?');
-                activeTests.get(userId).lastBotMessage = initialMsg;
-            } catch (error) {
-                await interaction.reply({ content: '❌ Não consegui te enviar mensagem privada. Abra suas DMs!', ephemeral: true });
+        if (cooldowns.has(userId)) {
+            const expirationTime = cooldowns.get(userId);
+            if (Date.now() < expirationTime) {
+                const hoursLeft = Math.ceil((expirationTime - Date.now()) / (1000 * 60 * 60));
+                return interaction.reply({ content: `❌ Você foi reprovado recentemente. Tente novamente em **${hoursLeft}h**.`, ephemeral: true });
+            } else {
+                cooldowns.delete(userId); 
             }
         }
 
-        if (interaction.customId === 'order_drugs' || interaction.customId === 'order_weapons' || interaction.customId === 'order_explosives') {
-            const modalMap = {
-                'order_drugs': { id: 'modal_drugs', title: '🌿 Encomenda de Drogas' },
-                'order_weapons': { id: 'modal_weapons', title: '🔫 Encomenda de Armamentos' },
-                'order_explosives': { id: 'modal_explosives', title: '💣 Encomenda de Explosivos' }
-            };
-            const target = modalMap[interaction.customId];
-            const modal = new ModalBuilder().setCustomId(target.id).setTitle(target.title);
-
-            const itemInput = new TextInputBuilder().setCustomId('item_name').setLabel('Qual item e quantidade?').setStyle(TextInputStyle.Short).setRequired(true);
-            const obsInput = new TextInputBuilder().setCustomId('item_obs').setLabel('Observações ou local de entrega').setStyle(TextInputStyle.Paragraph).setRequired(true);
-
-            modal.addComponents(new ActionRowBuilder().addComponents(itemInput), new ActionRowBuilder().addComponents(obsInput));
-            await interaction.showModal(modal);
+        if (activeTests.has(userId)) {
+            return interaction.reply({ content: '⚠️ Você já possui um processo de recrutamento ativo nas suas DMs!', ephemeral: true });
         }
 
-        if (interaction.customId.startsWith('accept_order_')) {
-            const orderId = interaction.customId.replace('accept_order_', '');
-            const modal = new ModalBuilder().setCustomId(`modal_accept_${orderId}`).setTitle('⏱️ Assumir Encomenda');
-            const timeInput = new TextInputBuilder().setCustomId('delivery_time').setLabel('Em quanto tempo vai entregar?').setStyle(TextInputStyle.Short).setPlaceholder('Ex: 15 minutos').setRequired(true);
-            modal.addComponents(new ActionRowBuilder().addComponents(timeInput));
-            await interaction.showModal(modal);
+        // Modal para coletar os dados do candidato de uma vez só
+        const modalReg = new ModalBuilder().setCustomId('modal_registration_quiz').setTitle('📋 Cadastro de Recrutamento');
+
+        const inputNome = new TextInputBuilder().setCustomId('reg_nome').setLabel('Qual é o seu Nome Real?').setStyle(TextInputStyle.Short).setRequired(true);
+        const inputNick = new TextInputBuilder().setCustomId('reg_nick').setLabel('Qual é o seu Nick no Jogo?').setStyle(TextInputStyle.Short).setRequired(true);
+        const inputLevel = new TextInputBuilder().setCustomId('reg_level').setLabel('Qual é o seu Level no Jogo?').setStyle(TextInputStyle.Short).setRequired(true);
+        const inputTempo = new TextInputBuilder().setCustomId('reg_tempo').setLabel('Há quanto tempo joga no servidor?').setStyle(TextInputStyle.Short).setRequired(true);
+
+        modalReg.addComponents(
+            new ActionRowBuilder().addComponents(inputNome),
+            new ActionRowBuilder().addComponents(inputNick),
+            new ActionRowBuilder().addComponents(inputLevel),
+            new ActionRowBuilder().addComponents(inputTempo)
+        );
+
+        return await interaction.showModal(modalReg);
+    }
+
+    // BOTÕES DA PROVA NA DM (1, 2 ou 3)
+    if (interaction.isButton() && interaction.customId.startsWith('quiz_opt_')) {
+        const test = activeTests.get(interaction.user.id);
+        if (!test) {
+            return interaction.reply({ content: '⚠️ Seu teste não foi localizado ou já foi concluído.', ephemeral: true });
         }
+
+        const selectedOpt = interaction.customId.replace('quiz_opt_', '');
+        const currentQ = test.questions[test.step];
+
+        if (selectedOpt === currentQ.correct) {
+            test.score++;
+        }
+
+        test.step++;
+        const totalQ = test.questions.length;
+
+        if (test.step < totalQ) {
+            const nextQ = test.questions[test.step];
+            const embedQuestion = new EmbedBuilder()
+                .setTitle(`📝 Prova de Regras BMRP - Questão ${test.step + 1}/${totalQ}`)
+                .setDescription(`**Pergunta:** ${nextQ.question}`)
+                .setColor('#0099FF')
+                .setFooter({ text: 'Clique no botão da opção correspondente abaixo.' });
+
+            const rowButtons = new ActionRowBuilder().addComponents(
+                new ButtonBuilder().setCustomId('quiz_opt_1').setLabel('1️⃣ Alternativa 1').setStyle(ButtonStyle.Primary),
+                new ButtonBuilder().setCustomId('quiz_opt_2').setLabel('2️⃣ Alternativa 2').setStyle(ButtonStyle.Primary),
+                new ButtonBuilder().setCustomId('quiz_opt_3').setLabel('3️⃣ Alternativa 3').setStyle(ButtonStyle.Primary)
+            );
+
+            await interaction.update({ embeds: [embedQuestion], components: [rowButtons] });
+        } else {
+            // Finalização do Teste
+            let status = '';
+            let color = '#00FF00';
+
+            if (test.score > 5) {
+                status = '✅ **APROVADO**';
+            } else if (test.score === 5) {
+                status = '⚠️ **APROVADO COM OBSERVAÇÃO**';
+                color = '#FFFF00';
+            } else {
+                status = '❌ **REPROVADO**';
+                color = '#FF0000';
+                cooldowns.set(interaction.user.id, Date.now() + (5 * 60 * 60 * 1000));
+            }
+
+            let descResult = `**Resultado:** ${status}\n**Pontuação:** **${test.score}/${totalQ}** acertos.\n\n`;
+
+            if (test.score >= 5) {
+                descResult += `🎉 Parabéns! Entre no nosso grupo do WhatsApp:\n${WHATSAPP_LINK}`;
+            } else {
+                descResult += `Você não atingiu a pontuação mínima necessária. Poderá tentar novamente em **5 horas**.`;
+            }
+
+            const embedFinal = new EmbedBuilder()
+                .setTitle('📋 RESULTADO DA PROVA DE RECRUTAMENTO')
+                .setDescription(descResult)
+                .setColor(color)
+                .setTimestamp();
+
+            await interaction.update({ embeds: [embedFinal], components: [] });
+
+            // Envia Log
+            let logChannel = await getLogChannel(test.guild);
+            if (logChannel) {
+                const embedLog = new EmbedBuilder()
+                    .setTitle(`RESULTADO: ${status.replace(/\*/g, '')}`)
+                    .setColor(color)
+                    .addFields(
+                        { name: '👤 Discord', value: `<@${interaction.user.id}>`, inline: false },
+                        { name: '📝 Nome', value: test.data.nome, inline: true },
+                        { name: '🎮 Nick', value: test.data.nick, inline: true },
+                        { name: '⭐ Level', value: test.data.level, inline: true },
+                        { name: '⏳ Tempo no Servidor', value: test.data.tempo, inline: true },
+                        { name: '📊 Acertos', value: `${test.score}/${totalQ}`, inline: false }
+                    )
+                    .setTimestamp();
+                await logChannel.send({ embeds: [embedLog] });
+            }
+
+            activeTests.delete(interaction.user.id);
+        }
+    }
+
+    // SUBMIT DO MODAL DE CADASTRO
+    if (interaction.isModalSubmit() && interaction.customId === 'modal_registration_quiz') {
+        const nome = interaction.fields.getTextInputValue('reg_nome');
+        const nick = interaction.fields.getTextInputValue('reg_nick');
+        const level = interaction.fields.getTextInputValue('reg_level');
+        const tempo = interaction.fields.getTextInputValue('reg_tempo');
+
+        const shuffledQuestions = shuffleArray(baseQuizQuestions);
+        const firstQ = shuffledQuestions[0];
+
+        const embedQuestion = new EmbedBuilder()
+            .setTitle(`📝 Prova de Regras BMRP - Questão 1/${shuffledQuestions.length}`)
+            .setDescription(`**Pergunta:** ${firstQ.question}`)
+            .setColor('#0099FF')
+            .setFooter({ text: 'Clique no botão da opção correspondente abaixo.' });
+
+        const rowButtons = new ActionRowBuilder().addComponents(
+            new ButtonBuilder().setCustomId('quiz_opt_1').setLabel('1️⃣ Alternativa 1').setStyle(ButtonStyle.Primary),
+            new ButtonBuilder().setCustomId('quiz_opt_2').setLabel('2️⃣ Alternativa 2').setStyle(ButtonStyle.Primary),
+            new ButtonBuilder().setCustomId('quiz_opt_3').setLabel('3️⃣ Alternativa 3').setStyle(ButtonStyle.Primary)
+        );
+
+        try {
+            const dmChannel = await interaction.user.createDM();
+            await dmChannel.send({ embeds: [embedQuestion], components: [rowButtons] });
+
+            activeTests.set(interaction.user.id, {
+                step: 0,
+                score: 0,
+                data: { nome, nick, level, tempo },
+                questions: shuffledQuestions,
+                guild: interaction.guild
+            });
+
+            await interaction.reply({ content: '✅ **Cadastro concluído!** A prova foi enviada para suas **Mensagens Diretas (DMs)** em formato de painel com botões.', ephemeral: true });
+        } catch (err) {
+            await interaction.reply({ content: '❌ Não consegui enviar mensagem nas suas DMs. Certifique-se de que suas **Mensagens Diretas estão ABERTAS** nas configurações do Discord.', ephemeral: true });
+        }
+    }
+
+    // SISTEMA DE ENCOMENDAS (Mantido)
+    if (interaction.isButton() && (interaction.customId === 'order_drugs' || interaction.customId === 'order_weapons' || interaction.customId === 'order_explosives')) {
+        const modalMap = {
+            'order_drugs': { id: 'modal_drugs', title: '🌿 Encomenda de Drogas' },
+            'order_weapons': { id: 'modal_weapons', title: '🔫 Encomenda de Armamentos' },
+            'order_explosives': { id: 'modal_explosives', title: '💣 Encomenda de Explosivos' }
+        };
+        const target = modalMap[interaction.customId];
+        const modal = new ModalBuilder().setCustomId(target.id).setTitle(target.title);
+
+        const itemInput = new TextInputBuilder().setCustomId('item_name').setLabel('Qual item e quantidade?').setStyle(TextInputStyle.Short).setRequired(true);
+        const obsInput = new TextInputBuilder().setCustomId('item_obs').setLabel('Observações ou local de entrega').setStyle(TextInputStyle.Paragraph).setRequired(true);
+
+        modal.addComponents(new ActionRowBuilder().addComponents(itemInput), new ActionRowBuilder().addComponents(obsInput));
+        return await interaction.showModal(modal);
+    }
+
+    if (interaction.isButton() && interaction.customId.startsWith('accept_order_')) {
+        const orderId = interaction.customId.replace('accept_order_', '');
+        const modal = new ModalBuilder().setCustomId(`modal_accept_${orderId}`).setTitle('⏱️ Assumir Encomenda');
+        const timeInput = new TextInputBuilder().setCustomId('delivery_time').setLabel('Em quanto tempo vai entregar?').setStyle(TextInputStyle.Short).setPlaceholder('Ex: 15 minutos').setRequired(true);
+        modal.addComponents(new ActionRowBuilder().addComponents(timeInput));
+        return await interaction.showModal(modal);
     }
 
     if (interaction.isModalSubmit()) {
@@ -555,5 +598,5 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-// LOGIN SEGURO VIA VARIÁVEL DE AMBIENTE
+// LOGIN DO BOT
 client.login(process.env.DISCORD_TOKEN);
