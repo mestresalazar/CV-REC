@@ -1,5 +1,14 @@
 try { require('dotenv').config(); } catch (e) {}
 
+// SISTEMA DE SEGURANÇA: Impede que o bot desligue no Render em caso de erro na API do Discord
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('⚠️ Erro não tratado detectado (o bot continuará rodando):', reason);
+});
+
+process.on('uncaughtException', (err, origin) => {
+    console.error('⚠️ Exceção crítica detectada (o bot continuará rodando):', err);
+});
+
 const { 
     Client, 
     GatewayIntentBits, 
@@ -353,17 +362,17 @@ client.on('interactionCreate', async interaction => {
             const expirationTime = cooldowns.get(userId);
             if (Date.now() < expirationTime) {
                 const hoursLeft = Math.ceil((expirationTime - Date.now()) / (1000 * 60 * 60));
-                return interaction.reply({ content: `❌ Você foi reprovado recentemente. Tente novamente em **${hoursLeft}h**.`, ephemeral: true });
+                return interaction.reply({ content: `❌ Você foi reprovado recentemente. Tente novamente em **${hoursLeft}h**.`, ephemeral: true }).catch(() => {});
             } else {
                 cooldowns.delete(userId); 
             }
         }
 
         if (activeTests.has(userId)) {
-            return interaction.reply({ content: '⚠️ Você já possui um processo de recrutamento ativo nas suas DMs!', ephemeral: true });
+            return interaction.reply({ content: '⚠️ Você já possui um processo de recrutamento ativo nas suas DMs!', ephemeral: true }).catch(() => {});
         }
 
-        // Modal para coletar os dados do candidato de uma vez só
+        // Modal para coletar os dados do candidato
         const modalReg = new ModalBuilder().setCustomId('modal_registration_quiz').setTitle('📋 Cadastro de Recrutamento');
 
         const inputNome = new TextInputBuilder().setCustomId('reg_nome').setLabel('Qual é o seu Nome Real?').setStyle(TextInputStyle.Short).setRequired(true);
@@ -378,14 +387,18 @@ client.on('interactionCreate', async interaction => {
             new ActionRowBuilder().addComponents(inputTempo)
         );
 
-        return await interaction.showModal(modalReg);
+        try {
+            return await interaction.showModal(modalReg);
+        } catch (err) {
+            console.error('Erro ao exibir o modal de recrutamento:', err);
+        }
     }
 
     // BOTÕES DA PROVA NA DM (1, 2 ou 3)
     if (interaction.isButton() && interaction.customId.startsWith('quiz_opt_')) {
         const test = activeTests.get(interaction.user.id);
         if (!test) {
-            return interaction.reply({ content: '⚠️ Seu teste não foi localizado ou já foi concluído.', ephemeral: true });
+            return interaction.reply({ content: '⚠️ Seu teste não foi localizado ou já foi concluído.', ephemeral: true }).catch(() => {});
         }
 
         const selectedOpt = interaction.customId.replace('quiz_opt_', '');
@@ -412,7 +425,7 @@ client.on('interactionCreate', async interaction => {
                 new ButtonBuilder().setCustomId('quiz_opt_3').setLabel('3️⃣ Alternativa 3').setStyle(ButtonStyle.Primary)
             );
 
-            await interaction.update({ embeds: [embedQuestion], components: [rowButtons] });
+            await interaction.update({ embeds: [embedQuestion], components: [rowButtons] }).catch(() => {});
         } else {
             // Finalização do Teste
             let status = '';
@@ -443,7 +456,7 @@ client.on('interactionCreate', async interaction => {
                 .setColor(color)
                 .setTimestamp();
 
-            await interaction.update({ embeds: [embedFinal], components: [] });
+            await interaction.update({ embeds: [embedFinal], components: [] }).catch(() => {});
 
             // Envia Log
             let logChannel = await getLogChannel(test.guild);
@@ -460,7 +473,7 @@ client.on('interactionCreate', async interaction => {
                         { name: '📊 Acertos', value: `${test.score}/${totalQ}`, inline: false }
                     )
                     .setTimestamp();
-                await logChannel.send({ embeds: [embedLog] });
+                await logChannel.send({ embeds: [embedLog] }).catch(() => {});
             }
 
             activeTests.delete(interaction.user.id);
@@ -501,13 +514,13 @@ client.on('interactionCreate', async interaction => {
                 guild: interaction.guild
             });
 
-            await interaction.reply({ content: '✅ **Cadastro concluído!** A prova foi enviada para suas **Mensagens Diretas (DMs)** em formato de painel com botões.', ephemeral: true });
+            await interaction.reply({ content: '✅ **Cadastro concluído!** A prova foi enviada para suas **Mensagens Diretas (DMs)** em formato de painel com botões.', ephemeral: true }).catch(() => {});
         } catch (err) {
-            await interaction.reply({ content: '❌ Não consegui enviar mensagem nas suas DMs. Certifique-se de que suas **Mensagens Diretas estão ABERTAS** nas configurações do Discord.', ephemeral: true });
+            await interaction.reply({ content: '❌ Não consegui enviar mensagem nas suas DMs. Certifique-se de que suas **Mensagens Diretas estão ABERTAS** nas configurações do Discord.', ephemeral: true }).catch(() => {});
         }
     }
 
-    // SISTEMA DE ENCOMENDAS (Mantido)
+    // SISTEMA DE ENCOMENDAS
     if (interaction.isButton() && (interaction.customId === 'order_drugs' || interaction.customId === 'order_weapons' || interaction.customId === 'order_explosives')) {
         const modalMap = {
             'order_drugs': { id: 'modal_drugs', title: '🌿 Encomenda de Drogas' },
@@ -521,7 +534,11 @@ client.on('interactionCreate', async interaction => {
         const obsInput = new TextInputBuilder().setCustomId('item_obs').setLabel('Observações ou local de entrega').setStyle(TextInputStyle.Paragraph).setRequired(true);
 
         modal.addComponents(new ActionRowBuilder().addComponents(itemInput), new ActionRowBuilder().addComponents(obsInput));
-        return await interaction.showModal(modal);
+        try {
+            return await interaction.showModal(modal);
+        } catch (err) {
+            console.error('Erro ao exibir modal de encomenda:', err);
+        }
     }
 
     if (interaction.isButton() && interaction.customId.startsWith('accept_order_')) {
@@ -529,7 +546,11 @@ client.on('interactionCreate', async interaction => {
         const modal = new ModalBuilder().setCustomId(`modal_accept_${orderId}`).setTitle('⏱️ Assumir Encomenda');
         const timeInput = new TextInputBuilder().setCustomId('delivery_time').setLabel('Em quanto tempo vai entregar?').setStyle(TextInputStyle.Short).setPlaceholder('Ex: 15 minutos').setRequired(true);
         modal.addComponents(new ActionRowBuilder().addComponents(timeInput));
-        return await interaction.showModal(modal);
+        try {
+            return await interaction.showModal(modal);
+        } catch (err) {
+            console.error('Erro ao exibir modal de aceitar encomenda:', err);
+        }
     }
 
     if (interaction.isModalSubmit()) {
@@ -563,19 +584,19 @@ client.on('interactionCreate', async interaction => {
                     .setEmoji('📦')
             );
 
-            await interaction.reply({ content: '✅ Sua encomenda foi registrada e enviada para a organização!', ephemeral: true });
+            await interaction.reply({ content: '✅ Sua encomenda foi registrada e enviada para a organização!', ephemeral: true }).catch(() => {});
 
             let targetChannel = interaction.channel;
             const foundPedidos = interaction.guild.channels.cache.find(c => c.name.toLowerCase().includes('pedidos-recebidos') && c.type === ChannelType.GuildText);
             if (foundPedidos) targetChannel = foundPedidos;
 
-            await targetChannel.send({ embeds: [embedOrder], components: [rowAccept] });
+            await targetChannel.send({ embeds: [embedOrder], components: [rowAccept] }).catch(() => {});
         }
 
         if (interaction.customId.startsWith('modal_accept_')) {
             const deliveryTime = interaction.fields.getTextInputValue('delivery_time');
             const originalEmbed = interaction.message.embeds[0];
-            if (!originalEmbed) return interaction.reply({ content: '❌ Erro ao localizar dados.', ephemeral: true });
+            if (!originalEmbed) return interaction.reply({ content: '❌ Erro ao localizar dados.', ephemeral: true }).catch(() => {});
 
             const embedAndamento = new EmbedBuilder()
                 .setTitle('⏳ Encomenda em Andamento')
@@ -591,12 +612,12 @@ client.on('interactionCreate', async interaction => {
             const foundAndamento = interaction.guild.channels.cache.find(c => c.name.toLowerCase().includes('pedidos-em-andamento') && c.type === ChannelType.GuildText);
             if (foundAndamento) andamentoChannel = foundAndamento;
 
-            await andamentoChannel.send({ embeds: [embedAndamento] });
-            await interaction.reply({ content: `✅ Você assumiu esta encomenda! Enviado para <#${andamentoChannel.id}>.`, ephemeral: true });
+            await andamentoChannel.send({ embeds: [embedAndamento] }).catch(() => {});
+            await interaction.reply({ content: `✅ Você assumiu esta encomenda! Enviado para <#${andamentoChannel.id}>.`, ephemeral: true }).catch(() => {});
             await interaction.message.delete().catch(() => {});
         }
     }
 });
 
-// LOGIN DO BOT
+// LOGIN DO BOT VIA VARIÁVEL DE AMBIENTE
 client.login(process.env.DISCORD_TOKEN);
