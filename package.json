@@ -1,0 +1,13 @@
+{
+  "name": "guardianbot",
+  "version": "1.0.0",
+  "description": "Bot de Recrutamento BMRP",
+  "main": "index_2.js",
+  "scripts": {
+    "start": "node index_2.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.0",
+    "express": "^4.19.2"
+  }
+}
