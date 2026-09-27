@@ -1,3 +1,15 @@
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    res.status(200).send('Bot do BMRP está online e a funcionar perfeitamente!');
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor web a escutar na porta ${PORT}`);
+});
+
 require('dotenv').config();
 
 const { 
